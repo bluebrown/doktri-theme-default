@@ -1,0 +1,25 @@
+{{ define "head" }}
+{{ link "chroma.css" "prefetch" }}
+{{ end }}
+
+{{ define "content" }}
+{{ $content := .Content }}
+{{ if gt (len $content) 0 }}
+<article>
+  {{ $content | render }}
+</article>
+{{ end }}
+<h2>Explore</h2>
+<ul>
+  {{ range .Children }}
+  <li>
+    {{ template "node-anchor" . }}
+    {{ if .IsLeaf }}
+    <p>
+      {{ .Content | excerpt }}
+    </p>
+    {{ end }}
+  </li>
+  {{ end }}
+</ul>
+{{ end }}

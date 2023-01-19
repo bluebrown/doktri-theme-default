@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ meta.title | default "doktri" }}{{ if ne .Name "home" }} - {{ .Title }}{{ end }}</title>
+  {{ link "favicon.ico" "icon" }}
+  {{ link "base.css" "stylesheet" }}
+  {{ link "main.css" "stylesheet" }}
+  {{ block "head" . }}
+  {{ end }}
+</head>
+
+<body class="darker">
+  <nav id="nav"></nav>
+  <section id="page" class="{{ if .IsLeaf }}post{{ end }}">
+    <aside id="menu">
+      {{ block "menu" . }}
+      {{ template "tree" .Root }}
+      {{ end }}
+    </aside>
+    <main id="content">
+      <nav>
+        <ul class="bread-crumbs">
+          {{ template "bread-crumbs" . }}
+        </ul>
+      </nav>
+      {{ block "content" . }}
+      {{ end }}
+    </main>
+    <aside id="context">
+      {{ block "context" . }}
+      {{ end }}
+    </aside>
+  </section>
+  <footer id="footer">
+    {{ if and meta.socials (gt (len meta.socials) 1) }}
+    <section id="socials">
+      {{ range meta.socials }}
+      <a href="{{ .anchor }}" class="social-link no-pop">
+        <svg class="social-icon">{{ . | include (printf "icon-%s" .icon) }}</svg>
+        <span>{{ .title }}</span>
+      </a>
+      {{ end }}
+    </section>
+    {{ end }}
+  </footer>
+</body>
+
+</html>

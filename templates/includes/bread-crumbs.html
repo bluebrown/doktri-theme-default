@@ -1,0 +1,9 @@
+{{- define "bread-crumbs" }}
+{{- if .IsRoot }}
+<li><a href="{{ .Root.Path }}">{{ .Root.Title }}</a></li>
+{{- else }}
+{{- template "bread-crumbs" .Parent }}
+<li role="separator" class="vr">/</li>
+<li><a href="{{ .Path }}">{{ .Title }}</a></li>
+{{- end }}
+{{- end }}

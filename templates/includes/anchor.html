@@ -1,0 +1,9 @@
+{{- define "node-anchor" }}
+<a href="{{ .Path }}">
+  {{ .Title }}
+  {{- if .IsLeaf }}
+  <small> - {{ .Author }}</small>
+  <small> - {{ .Date.Format "January 02, 2006" }}</small>
+  {{- end }}
+</a>
+{{- end }}

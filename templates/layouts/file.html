@@ -1,0 +1,36 @@
+{{- define "head" }}
+{{ link "chroma.css" "stylesheet" }}
+{{- end }}
+
+{{- define "content" }}
+<article class="post">
+  <section class="post-content">
+    {{ .Content | render }}
+  </section>
+  <footer class="post-footer">
+    <p>
+      <span>{{ .Author }}</span>&nbsp;-&nbsp;<time>{{ .Date.Format "January 02, 2006" }}</time>
+    </p>
+    <p>
+      <a href="#nav" class="no-pop">Back to Top</a>
+    </p>
+  </footer>
+</article>
+{{- end }}
+
+{{- define "context" }}
+<section class="toc">
+  <h3>What is on this page?</h3>
+  {{- .Content | toc }}
+  {{- if .HasSiblings }}
+</section>
+<section class="releated">
+  <h3>Related</h3>
+  <ul>
+    {{- range .Siblings }}
+    <li>{{ template "node-anchor" . }}</li>
+    {{- end }}
+  </ul>
+  {{- end }}
+</section>
+{{- end }}
